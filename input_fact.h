@@ -5,7 +5,8 @@
 #include <string.h>
 
 int Factorial(int n);
-void PlayOrQuit(void);
+void PlayOrQuit(char *msg);
 int GetInteger(int lo, int hi);
+void TaskCalls(void);
 
 #endif 

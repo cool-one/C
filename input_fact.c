@@ -11,8 +11,9 @@ RUN:          $ ./fact
 #include "input_fact.h"
 
 int main()
-{ 
-    PlayOrQuit();
+{
+    char message[] = "Do you want to find a factorial?  Y/N: ";
+    PlayOrQuit(message);
     return 0;
 }
 
@@ -35,7 +36,7 @@ int GetInteger(int lo, int hi)
         int user_int = -1;
         char buf[4];
         // Reads in 3 chars or until \n from stdin.  Adds \0 to end.
-        fgets(buf, 4, stdin);                           
+        fgets(buf, 4, stdin);
 
         // Check for a newline stored in buf, indicating all chars captured.
         if(!strchr(buf, '\n')) {
@@ -43,7 +44,6 @@ int GetInteger(int lo, int hi)
             while ((getchar()) != '\n');                
         }
         sscanf(buf, "%d", &user_int);
-
         if(user_int >= lo && user_int <= hi) {
             return user_int;
         } else {                                          
@@ -53,10 +53,10 @@ int GetInteger(int lo, int hi)
 }
 
 /*  Keeps program looping w/ quit option  */
-void PlayOrQuit(void)         
+void PlayOrQuit(char *msg)         
 {
     while(1) {
-        printf("Do you want to find a factorial?  Y/N: ");
+        printf("%s", msg);
         char user_char = getchar(); 
         if (user_char == '\n') {  
             // if only enter pressed, carry on...
@@ -66,12 +66,7 @@ void PlayOrQuit(void)
             while ((getchar()) != '\n');                
         }
         if(user_char == 'Y' || user_char == 'y') { 	
-            int lo = 0;
-            int hi = 12;
-            int user_num = GetInteger(lo, hi);   
-            int solution;
-            solution = Factorial(user_num);
-            printf("The factorial of %d is %d. \n", user_num, solution);           
+            TaskCalls();
         } else if(user_char == 'N' || user_char == 'n') {
             printf("exiting program....\n");
             break;
@@ -79,4 +74,15 @@ void PlayOrQuit(void)
             printf("not a valid option, try again\n");
         }
     }
+}
+
+/*  Tasks to be called, along with parameters  */
+void TaskCalls(void) 
+{
+    int lo = 0;
+    int hi = 12;
+    int user_num = GetInteger(lo, hi);   
+    int solution;
+    solution = Factorial(user_num);
+    printf("The factorial of %d is %d. \n", user_num, solution);
 }
