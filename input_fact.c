@@ -31,9 +31,9 @@ int Factorial(int n)
 /*  Gets an integer from user, range = lo:hi  */
 int GetInteger(int lo, int hi)
 {
-    while(1) {
+    int user_int = -1;
+    do {
         printf("Enter an integer between %d and %d: ", lo, hi);
-        int user_int = -1;
         char buf[4];
         // Reads in 3 chars or until \n from stdin.  Adds \0 to end.
         fgets(buf, 4, stdin);
@@ -49,15 +49,16 @@ int GetInteger(int lo, int hi)
         } else {                                          
             printf("Input out of range\n");
         }
-    }
+    } while(!(user_int >= lo && user_int <= hi));
 }
 
 /*  Keeps program looping w/ quit option  */
 void PlayOrQuit(char *msg)         
 {
-    while(1) {
+    char user_char;
+    do {
         printf("%s", msg);
-        char user_char = getchar(); 
+        user_char = getchar(); 
         if (user_char == '\n') {  
             // if only enter pressed, carry on...
             continue;
@@ -69,11 +70,10 @@ void PlayOrQuit(char *msg)
             TaskCalls();
         } else if(user_char == 'N' || user_char == 'n') {
             printf("exiting program....\n");
-            break;
         } else {
             printf("not a valid option, try again\n");
         }
-    }
+    } while(!(user_char == 'N' || user_char == 'n'));
 }
 
 /*  Tasks to be called, along with parameters  */
